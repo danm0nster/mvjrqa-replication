@@ -1,0 +1,33 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: MvJRQA
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - orcid: 'https://orcid.org/0000-0001-9639-8823'
+    given-names: Dan
+    family-names: Mønster
+    email: danm@econ.au.dk
+    affiliation: Aarhus University
+  - given-names: Sebastian
+    family-names: Wallot
+    orcid: 'https://orcid.org/0000-0002-3626-3940'
+    email: sebastian.wallot@leuphana.de
+    affiliation: Leuphana University Lüneburg
+repository-code: 'https://github.com/danm0nster/mvjrqa-replication'
+abstract: >-
+  Replication data and code for MvJRQA. Multivariate Joint
+  Recurrence Quantification Analysis: detecting coupling
+  between time series of different dimensionalities.
+keywords:
+  - recurrence quantification
+  - recurrence plot
+  - joint recurrence
+  - multivariate time series
+  - coupling
+  - causality
+license: CC-BY-4.0
