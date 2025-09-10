@@ -8,9 +8,9 @@ message: >-
   metadata from this file.
 type: software
 authors:
-  - orcid: 'https://orcid.org/0000-0001-9639-8823'
-    given-names: Dan
+  - given-names: Dan
     family-names: Mønster
+    orcid: 'https://orcid.org/0000-0001-9639-8823'
     email: danm@econ.au.dk
     affiliation: Aarhus University
   - given-names: Sebastian
