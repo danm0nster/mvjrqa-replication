@@ -57,7 +57,6 @@ library(readr)
 library(dplyr)
 library(edf)
 source("R/mvjrqa.R")
-source("R/utils.R")
 library(parallel)
 
 # Set the number of workers (# worker processes <= # CPU cores)
