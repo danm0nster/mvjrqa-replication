@@ -1,5 +1,3 @@
-# FIXME: Remove the DRYRUN option before comitting
-
 ## ---------------------------
 ##
 ## Script name: 01_mvjrqa_analysis_empirical.R
@@ -13,6 +11,11 @@
 ## ---------------------------
 ##
 ## Notes:
+##
+## This script uses the parallel package for parallel processing.
+## Please set the number of worker processes you wish to use by changing
+## the value of the variable num_workers below. It should be less than the
+## number of CPU cores available on your system.
 ##
 ## In order to run this script, you must first download the empirical data set
 ## by Shafei & Shadpour (2023) from Physionet.
@@ -60,6 +63,9 @@ library(edf)
 source("R/mvjrqa.R")
 source("R/utils.R")
 library(parallel)
+
+# Set the number of workers (# worker processes <= # CPU cores)
+num_workers <- 6
 
 # Individual files are written to results/eye2d and results/eye3d
 eye2d_path <- "results/eye2d"
@@ -320,7 +326,8 @@ loop_data_fun = function(i, x) {
 
 ## Parallelization
 # Find out how many "workers" are available and prepare them for the task.
-cl = makeCluster(6)
+# Set num_workes to an appropriate value for your system at the top of the script
+cl = makeCluster(num_workers)
 
 # Create the same working environment for all of them.
 clusterEvalQ(cl, {
