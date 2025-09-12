@@ -256,8 +256,7 @@ mvjrqa <- function(ts1,
                                                 side = side,
                                                 metric = metric,
                                                 datatype = datatype,
-                                                targetrec = targetrec,
-                                                method = method
+                                                targetrec = targetrec
     )
     # Add how the function was called
     fixed_rec_result$command <- command
