@@ -4,7 +4,7 @@
 ##
 ## Purpose:  Utility functions
 ##
-## Author: Dan Moenster & Sebastian Wallot 
+## Author: Dan Moenster & Sebastian Wallot
 ##
 ## Date Created: Apr 28 2022
 ##
@@ -45,37 +45,35 @@ infer_rqa_type <- function(time_series) {
 rqa <- function(ts, delay, embed, radius) {
   rqa_ts <-  crqa(ts, ts,
                   delay, embed, radius,
-                  rescale     = 0,           # 0 (none) | 1 (mean distance) | 2 (max distance) | 3 (min distance) | 4 (euclidean distance)
-                  normalize   = 2,           # 0 (none) | 1 (unit interval) | 2 (z-score)
-                  mindiagline = 2,           # min recurrent points for diagonal lines
-                  minvertline = 2,           # min recurrent points for vertical lines
-                  tw          = 1,           # Theiler window: 0 (incl LOI) | 1 (excl LOI)
-                  whiteline   = FALSE,       # calculate empty vertical lines or not  # TRUE gives error in crqa::tt() internal helper
-                  recpt       = FALSE,       # calculate measures directly from RP or not
-                  side        = "both",      # base measures on "upper" or "lower" triangle, or "both"
-                  method      = "rqa",       # "rqa" | "crqa" | "mdcrqa"
-                  metric      = "euclidean", # distance metric: "euclidean" | "maximum" | "minkowski" | ...
+                  rescale     = 0,
+                  normalize   = 2,
+                  mindiagline = 2,
+                  minvertline = 2,
+                  tw          = 1,
+                  whiteline   = FALSE,
+                  recpt       = FALSE,
+                  side        = "both",
+                  method      = "rqa",
+                  metric      = "euclidean",
                   datatype    = "continuous")
-  
   return(rqa_ts)
 }
 
 # Function to compute MdRQA of one time series
 mdrqa <- function(ts, delay, embed, radius) {
   rqa_ts <-  crqa(ts, ts,
-                    delay, embed, radius,
-                    rescale     = 0,           # 0 (none) | 1 (mean distance) | 2 (max distance) | 3 (min distance) | 4 (euclidean distance)
-                    normalize   = 2,           # 0 (none) | 1 (unit interval) | 2 (z-score)
-                    mindiagline = 2,           # min recurrent points for diagonal lines
-                    minvertline = 2,           # min recurrent points for vertical lines
-                    tw          = 1,           # Theiler window: 0 (incl LOI) | 1 (excl LOI)
-                    whiteline   = FALSE,       # calculate empty vertical lines or not  # TRUE gives error in crqa::tt() internal helper
-                    recpt       = FALSE,       # calculate measures directly from RP or not
-                    side        = "both",      # base measures on "upper" or "lower" triangle, or "both"
-                    method      = "mdcrqa",    # "rqa" | "crqa" | "mdcrqa"
-                    metric      = "euclidean", # distance metric: "euclidean" | "maximum" | "minkowski" | ...
-                    datatype    = "continuous")
-  
+                  delay, embed, radius,
+                  rescale     = 0,
+                  normalize   = 2,
+                  mindiagline = 2,
+                  minvertline = 2,
+                  tw          = 1,
+                  whiteline   = FALSE,
+                  recpt       = FALSE,
+                  side        = "both",
+                  method      = "mdcrqa",
+                  metric      = "euclidean",
+                  datatype    = "continuous")
   return(rqa_ts)
 }
 
@@ -83,7 +81,7 @@ mdrqa <- function(ts, delay, embed, radius) {
 compute_jrqa_measures <- function(rp1, rp2,
                                   mindiagline = 2,
                                   minvertline = 2) {
-   rp_list <- list(
+  rp_list <- list(
     as.matrix(rp1),
     as.matrix(rp2),
     as.matrix(rp1) * as.matrix(rp2)
@@ -94,8 +92,6 @@ compute_jrqa_measures <- function(rp1, rp2,
   for (i in 1:3) {
     # store dimensions of the matrix
     crp <- rp_list[[i]]
-    nrw <- nrow(crp)
-    ncl <- ncol(crp)
     crp[is.na(crp)] <- 0
     # Computing the line counts
     numrecurs <- length(which(crp == TRUE))
@@ -223,12 +219,12 @@ compute_jrqa_measures <- function(rp1, rp2,
 # Function to compute bootstrapped CI from a vector of sampled values
 #
 # The function returns a vector (ci_lo, ci_hi)
-bootstrap_ci <- function(x, 
-                     na.rm = TRUE,
-                     level = 0.95,
-                     method = "bootstrap",
-                     center = TRUE,
-                     samples = NULL) {
+bootstrap_ci <- function(x,
+                         na.rm = TRUE,
+                         level = 0.95,
+                         method = "bootstrap",
+                         center = TRUE,
+                         samples = NULL) {
   if (is.null(samples)) {
     n_samples <- length(x)
   } else if (is.numeric(samples) && samples > 1) {
@@ -239,7 +235,7 @@ bootstrap_ci <- function(x,
     }
   } else {
     stop("samples must be an integer > 1")
-  } 
+  }
   # In case all values are NA. Return NA. This occurs for the radius
   # of the joint recurrence plot which is not defined.
   if (all(is.na(x))) {
@@ -250,9 +246,14 @@ bootstrap_ci <- function(x,
     return(NA)
   } else {
     if (method == "t.test") {
-      return(t.test(x, mu = mean(x, na.rm = na.rm), conf.level = level)$conf.int)
+      return(t.test(x,
+                    mu = mean(x, na.rm = na.rm),
+                    conf.level = level)$conf.int
+      )
     } else if (method == "bootstrap") {
-      bs_result <- replicate(n_samples, mean(sample(x, replace = TRUE), na.rm = na.rm))
+      bs_result <- replicate(n_samples,
+                             mean(sample(x, replace = TRUE),
+                                  na.rm = na.rm))
       bs_lo <- quantile(bs_result, probs = (1 - level) / 2)
       bs_hi <- quantile(bs_result, probs = 1 - (1 - level) / 2)
       if (center) {
@@ -273,13 +274,13 @@ bootstrap_ci <- function(x,
 # Function to compute the lower endpoint of the CI.
 # This function is a wrapper around bootstrap_ci()
 #
-lower_ci <- function(x, 
+lower_ci <- function(x,
                      na.rm = TRUE,
                      level = 0.95,
                      method = "bootstrap",
                      center = TRUE,
                      samples = NULL) {
-  ci <- bootstrap_ci(x, 
+  ci <- bootstrap_ci(x,
                      na.rm = na.rm,
                      level = level,
                      method = method,
@@ -291,13 +292,13 @@ lower_ci <- function(x,
 # Function to compute the upper endpoint of the CI.
 # This function is a wrapper around bootstrap_ci()
 #
-upper_ci <- function(x, 
+upper_ci <- function(x,
                      na.rm = TRUE,
                      level = 0.95,
                      method = "bootstrap",
                      center = TRUE,
                      samples = NULL) {
-  ci <- bootstrap_ci(x, 
+  ci <- bootstrap_ci(x,
                      na.rm = na.rm,
                      level = level,
                      method = method,
@@ -323,12 +324,12 @@ standard_error <- function(x, na.rm = TRUE) {
 # If there is a sample_id column, that is not summarised
 #
 compute_sample_summary <- function(rp_sample) {
-  rp_summary <- rp_sample |> 
-    group_by(RR_target, coupling, system) |> 
+  rp_summary <- rp_sample |>
+    group_by(RR_target, coupling, system) |>
     summarise(across(
-      .cols = !sample_id & where(is.numeric), 
-      .fns = list(M = mean, SD = sd, SE = standard_error, 
-                  CI_lo = lower_ci, CI_hi = upper_ci), na.rm = TRUE, 
+      .cols = !sample_id & where(is.numeric),
+      .fns = list(M = mean, SD = sd, SE = standard_error,
+                  CI_lo = lower_ci, CI_hi = upper_ci), na.rm = TRUE,
       .names = "{col}_{fn}"
     ), .groups = "drop")
   return(rp_summary)
