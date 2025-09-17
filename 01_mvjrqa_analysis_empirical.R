@@ -17,6 +17,10 @@
 ## the value of the variable num_workers below. It should be less than the
 ## number of CPU cores available on your system.
 ##
+## Note also that around 32 GB of RAM per core is needed, so you need
+## sufficient memory for the number of cores used. E.g., if you have 64 GB
+## of RAM, you can only use two cores (workers).
+##
 ## In order to run this script, you must first download the empirical data set
 ## by Shafei & Shadpour (2023) from Physionet.
 ##
