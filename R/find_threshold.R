@@ -26,7 +26,6 @@ find_threshold <- function(ts, target_pct, rescale = 0, normalize = 0,
   # Time-delay embedding (if embed > 1)
   if (embed > 1) {
     n_rows <- nrow(ts)
-    n_cols <- ncol(ts)
     max_shift <- delay * (embed - 1)
     # Pre-check: make sure we have enough rows
     if (n_rows <= max_shift) {
