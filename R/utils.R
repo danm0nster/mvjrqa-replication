@@ -12,7 +12,7 @@
 ##
 ## Notes:
 ##
-## This file contains various functions used by mvjrqa().
+## This file contains various functions used by mvjrqa() and scripts.
 ##
 ## ---------------------------
 
@@ -211,4 +211,36 @@ compute_jrqa_measures <- function(rp1, rp2,
   }
   results_list$rp_list <- rp_list
   results_list
+}
+
+# Utility function to create directories in the destination directory
+# if they do note already exist
+create_dir_if_not_present <- function(directory = NULL) {
+  # Check that directory is a character variable
+  if (!is.character(directory)) {
+    stop("directory must be of type character")
+  }
+  # Check if a file with the same name exists, but is not a directory
+  if (file.exists(directory) && !dir.exists(directory)) {
+    stop(
+      "A file: ",
+      directory,
+      " already exists, so a directory with the same name is not created."
+    )
+  }
+  # Check if directory does not exist
+  if (!dir.exists(directory)) {
+    # Check if parent directory exists. If not, then create it
+    dir_path <- unlist(strsplit(directory, "/"))
+    path_length <- length(dir_path)
+    # The parent directory is the path element up to the penultimate element
+    # separated by "/".
+    if (path_length > 1) {
+      # Here basename() could be used instead
+      parent_dir <- paste0(dir_path[1:path_length - 1], collapse = "/")
+      create_dir_if_not_present(parent_dir) # Recursively call the function
+    }
+    # Now the parent directory should exist, so `directory` can be created
+    dir.create(directory)
+  }
 }
