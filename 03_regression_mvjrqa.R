@@ -25,7 +25,6 @@ library(tidyr)
 library(performance)
 library(car)
 library(dplyr)
-library(readxl)
 library(lme4)
 library(lmerTest)
 

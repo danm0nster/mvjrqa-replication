@@ -12,9 +12,7 @@
 ##
 ## Notes:
 ##
-## This file contains various functions used by mvjrqa()
-## as well as function used to compute bootstrapped
-## confidence intervals of the results.
+## This file contains various functions used by mvjrqa().
 ##
 ## ---------------------------
 

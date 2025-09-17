@@ -132,7 +132,7 @@ The scripts use R (R Core Team, 2025) and the following packages:
 * performance: Lüdecke et al., 2021.
 * purrr: Wickham & Henry, 2025.
 * readr: Wickham et al., 2024a.
-* readxl: Wickham & Bryan, 2025.
+* rgl: Murdoch & Adler, 2025.
 * tidyr: Wickham et al., 2024b.
 
 ## References
@@ -183,6 +183,9 @@ Lüdecke D,  Ben-Shachar M S, Patil I, Waggoner P, Makowski P, (2021).
 
 Meschiari S (2022). _latex2exp: Use LaTeX Expressions in Plots_.
   R package version 0.9.6, <https://CRAN.R-project.org/package=latex2exp>.
+  
+Murdoch D, Adler D (2025). _rgl: 3D Visualization Using OpenGL_.
+  R package version 1.3.18, <https://CRAN.R-project.org/package=rgl>
   
 Pedersen T (2024). _patchwork: The Composer of Plots_. R package version 1.3.0,
   <https://CRAN.R-project.org/package=patchwork>.
