@@ -24,6 +24,7 @@ source("R/lorenz_harmonic.R")
 source("R/lorenz96.R")
 source("R/coupled_logistic_map.R")
 source("R/mvjrqa.R")
+source("R/utils.R")
 
 compute_lorenz_harmonic_data <- function(coupling = 1,
                                          rr = 10,
@@ -102,6 +103,7 @@ compute_lorenz_harmonic_data <- function(coupling = 1,
       }
     }
   }
+  create_dir_if_not_present("data")
   write_csv(joint_rr, file = full_file_name)
 }
 
@@ -183,6 +185,7 @@ compute_lorenz96_harmonic_data <- function(coupling = 1,
       }
     }
   }
+  create_dir_if_not_present("data")
   write_csv(joint_rr, file = full_file_name)
 }
 
@@ -254,6 +257,7 @@ compute_linear_stochastic_system_data <- function(coupling = 1,
       }
     }
   }   
+  create_dir_if_not_present("data")
   write_csv(joint_rr, file = full_file_name)
 }
 
@@ -386,5 +390,6 @@ compute_logistic_system_data <- function(coupling = 1,
       }
     }
   }
+  create_dir_if_not_present("data")
   write_csv(joint_rr, file = full_file_name)
 }
