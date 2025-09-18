@@ -1,3 +1,25 @@
+## ---------------------------
+##
+## Script name: generate_data_for_comparison_to_mdrqa.R
+##
+## Purpose of script: Produce data for comparing MvJRQA to MdRQA
+##
+## Author: Dan Moenster & Sebastian Wallot
+##
+## Date Created: May 18 2025
+##
+## ---------------------------
+##
+## Notes:
+##
+## This script saves results to the files:
+## data/linear_stochastic_system_mdrqa_comparison.csv
+## data/logistic_system_mdrqa_comparison.csv
+## data/lorenz_harmonic_mdrqa_comparison.csv
+## data/lorenz_96_harmonic_mdrqa_comparison.csv
+##
+## ---------------------------
+
 # load libraries
 library(crqa)
 library(readr)
@@ -7,7 +29,6 @@ set.seed(98879)
 
 # source functions
 source("R/mdrqa_comparison_sampling.R")
-
 
 #
 # Linear stochastic system
@@ -63,5 +84,3 @@ compute_lorenz_96_harmonic_mdrqa_comparison(
   sample_skip = 100,
   csv_file_name = "lorenz_96_harmonic_mdrqa_comparison.csv"
 )
-
-
