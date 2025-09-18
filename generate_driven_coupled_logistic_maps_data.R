@@ -1,6 +1,23 @@
-#
-# Calculate data for the driven coupled logistic map system
-#
+## ---------------------------
+##
+## Script name: generate_driven_coupled_logistic_maps_data.R
+##
+## Purpose of script: Calculate data for the driven coupled logistic map system
+##
+## Author: Dan Moenster & Sebastian Wallot
+##
+## Date Created: May 25 2025
+##
+## ---------------------------
+##
+## Notes:
+##
+## This script will produce the files:
+## data/driven_coupled_logistic_maps_coupling_sweep.csv
+## data/driven_coupled_logistic_maps_extreme_coupling.csv
+## data/driven_coupled_logistic_maps_rr_sweep.csv
+##
+## ---------------------------
 
 source("R/data_sampling.R")
 

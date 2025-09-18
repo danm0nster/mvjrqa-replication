@@ -1,6 +1,24 @@
-#
-# Calculate data for the Lorenz system coupled to a harmonic oscillator
-#
+## ---------------------------
+##
+## Script name: generate_lorenz_harmonic_oscillator_data.R
+##
+## Purpose of script: Calculate data for the Lorenz system coupled to a 
+##                    harmonic oscillator
+##
+## Author: Dan Moenster & Sebastian Wallot
+##
+## Date Created: May 25 2025
+##
+## ---------------------------
+##
+## Notes:
+##
+## This script will produce the files:
+## data/lorenz_harmonic_coupling_sweep.csv
+## data/lorenz_harmonic_extreme_coupling.csv
+## data/lorenz_harmonic_rr_sweep.csv
+##
+## ---------------------------
 
 source("R/data_sampling.R")
 

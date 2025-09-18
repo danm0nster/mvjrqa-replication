@@ -1,6 +1,23 @@
-#
-# Calculate data for the linear stochastic system
-#
+## ---------------------------
+##
+## Script name: generate_linear_stochastic_data.R
+##
+## Purpose of script: Calculate data for the linear stochastic system
+##
+## Author: Dan Moenster & Sebastian Wallot
+##
+## Date Created: May 25 2025
+##
+## ---------------------------
+##
+## Notes:
+##
+## This script will produce the files:
+## data/linear_stochastic_coupling_sweep.csv
+## data/linear_stochastic_extreme_coupling.csv
+## data/linear_stochastic_rr_sweep.csv
+##
+## ---------------------------
 
 source("R/data_sampling.R")
 

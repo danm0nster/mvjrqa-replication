@@ -1,9 +1,26 @@
-#
-# Calculate data for high-dimensional Lorenz 96 system coupled to a harmonic oscillator
-#
+## ---------------------------
+##
+## Script name: generate_lorenz96_high_dimensional_oscillator_data.R
+##
+## Purpose of script: Calculate data for high-dimensional Lorenz 96 system 
+##                    coupled to a harmonic oscillator
+##
+## Author: Dan Moenster & Sebastian Wallot
+##
+## Date Created: May 25 2025
+##
+## ---------------------------
+##
+## Notes:
+##
+## This script will produce the files:
+## data/lorenz96_high_dim_coupling_sweep.csv
+## data/lorenz96_high_dim_extreme_coupling.csv
+## data/lorenz96_high_dim_rr_sweep.csv
+##
+## ---------------------------
 
 source("R/data_sampling.R")
-
 
 # Sweep over moderate coupling values
 
