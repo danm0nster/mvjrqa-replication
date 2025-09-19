@@ -208,7 +208,7 @@ animation::saveVideo(
     )
   },
   video.name = "plots/mvjrp_animation.mp4", # Movie_S1 for the paper
-  other.opts = "-s 1080x1080 -pix_fmt yuv420p"
+  other.opts = "-s 1080x1080 -pix_fmt yuv420p -preset veryslow -crf 0"
 )
 
 # Save final frame in PDF
