@@ -24,6 +24,7 @@ library(ggplot2)
 library(patchwork)
 
 source("R/utils.R")
+source("R/bootstrap.R")
 
 #
 # Linear stochastic system
