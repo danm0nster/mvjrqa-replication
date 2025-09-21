@@ -23,6 +23,7 @@
 source("R/lorenz96.R")
 source("R/plot_utils.R")
 source("R/utils.R")
+source("R/bootstrap")
 
 # Make sure "./plots" directory exists
 create_dir_if_not_present("plots")
