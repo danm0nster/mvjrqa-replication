@@ -79,7 +79,7 @@ lor96_hd_plot <- ggplot(plot_data, aes(x = time, y = value, colour = system)) +
   theme(text = element_text(size = 28))
 
 ggsave("plots/lorenz96_high_dim_time_series_plot.pdf",
-       plot = lor96_plot,
+       plot = lor96_hd_plot,
        width = 10, height = 20)
 #
 # High-dimensional Lorenz 96 system coupled to harmonic oscillator
