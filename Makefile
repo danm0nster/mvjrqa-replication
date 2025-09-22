@@ -100,7 +100,7 @@ $(SIM_LORENZ_DATA): .lorenz ;
 
 $(SIM_LORENZ96_DATA): .lorenz96 ;
 
-.lorenz96: generate_lorenz96_high_dimensional_oscillator_data.R
+.lorenz96: generate_lorenz96_harmonic_oscillator_data.R
 	Rscript $<
 	@touch $@
 
