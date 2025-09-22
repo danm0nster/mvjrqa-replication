@@ -37,7 +37,7 @@ PLT_MODEL_RESULTS = plots/linear_stochastic_jrr_rr.pdf \
 	plots/lor-osc_jrr_by_rr2_log_color.pdf \
 	plots/lor96_osc_jrr_by_rr2_log_color.pdf
 
-PLT_MDRQA = plots/comparison_MdRQA_MvJRQA_coupling.pdf
+PLT_MDRQA = plots/comparison_mdrqa_mvjrqa_coupling.pdf
 
 PLT_HIDIM = plots/lorenz96_high_dim_time_series_plot.pdf \
 	plots/lorenz96_high_dim_harmonic_jrr_rr.pdf \
