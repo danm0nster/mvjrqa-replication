@@ -284,4 +284,4 @@ comparison_plot <-  p_linear + p_logistic + p_lorenz + p_lorenz96 +
 
 plot(comparison_plot)
 create_dir_if_not_present("plots")
-ggsave("plots/comparison_MdRQA_MvJRQA_coupling.pdf", width = 20, height = 5)
+ggsave("plots/comparison_mdrqa_mvjrqa_coupling.pdf", width = 20, height = 5)
