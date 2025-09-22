@@ -28,6 +28,12 @@ SIM_MDRQA_DATA = data/linear_stochastic_system_mdrqa_comparison.csv \
 MODEL_DATA = $(SIM_LINEAR_DATA) $(SIM_LOGISTIC_DATA) $(SIM_LORENZ_DATA) $(SIM_LORENZ96_DATA)
 SIM_DATA = $(MODEL_DATA) $(SIM_HIDIM_DATA) $(SIM_MDRQA_DATA)
 
+# Plots
+TS_PLOTS = plots/linear_model_time_series_plot.pdf \
+	plots/logistic_driver_time_series_plot.pdf \
+	plots/lorenz_harmonic_time_series_plot.pdf \
+	plots/lorenz96_time_series_plot.pdf
+
 PLT_MODEL_RESULTS = plots/linear_stochastic_jrr_rr.pdf \
 	plots/logistic_driven_jrr_rr.pdf \
 	plots/lorenz_harmonic_jrr_by_rr.pdf \
@@ -54,10 +60,10 @@ default: data
 
 data: $(SIM_DATA)
 
-plots: $(SIM_PLOTS)
+plots: $(TS_PLOTS) $(SIM_PLOTS)
 
 clean:
-	rm .linear .logistic .lorenz .lorenz96 .hidim .mdrqa
+	rm .linear .logistic .lorenz .lorenz96 .hidim .mdrqa .ts_plots .plt_model .plt_mdrqa .plt_hidim .animation
 
 # Rules for making (groups of) files from R-scripts.
 
@@ -110,7 +116,13 @@ $(SIM_MDRQA_DATA): .mdrqa ;
 	Rscript $<
 	@touch $@
 
-$(PLT_MODEL_RESULTS): $(MODEL_DATA) .plt_model;
+$(TS_PLOTS): .ts_plots ;
+
+.ts_plots: plot_model_time_series.R
+	Rscript $<
+	@touch $@
+
+$(PLT_MODEL_RESULTS): $(MODEL_DATA) .plt_model ;
 
 .plt_model: plot_model_results.R
 	Rscript $<
