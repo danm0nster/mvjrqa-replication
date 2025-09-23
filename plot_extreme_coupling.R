@@ -26,6 +26,10 @@ library(patchwork)
 
 source("R/plot_utils.R")
 source("R/bootstrap.R")
+source("R/utils.R")
+
+# Make sure "plots" directory exists
+create_dir_if_not_present("plots")
 
 #
 # Linear stochastic system
@@ -90,5 +94,5 @@ extreme_plot <-
   plot_layout(nrow = 1) +
   plot_annotation(tag_levels = "A")
 
-ggsave(extreme_plot, filename = "Plots/extreme_coupling.pdf",
+ggsave(extreme_plot, filename = "plots/extreme_coupling.pdf",
        width = 25, height = 6)
