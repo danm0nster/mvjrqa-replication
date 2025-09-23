@@ -50,6 +50,8 @@ PLT_HIDIM = plots/lorenz96_high_dim_time_series_plot.pdf \
 	plots/lor_hi_dim_jrr_by_rr2_log_color.pdf \
 	plots/lorenz96_high_dim_extreme_coupling.pdf
 
+PLT_EXTREME = plots/extreme_coupling.pdf
+
 ANIMATION = plots/mvjrp_animation_snapshot.pdf \
 	plots/mvjrp_animation.mp4
 
@@ -60,7 +62,7 @@ default: data
 
 data: $(SIM_DATA)
 
-plots: $(TS_PLOTS) $(SIM_PLOTS)
+plots: $(TS_PLOTS) $(SIM_PLOTS) $(PLT_EXTREME)
 
 clean:
 	rm .linear .logistic .lorenz .lorenz96 .hidim .mdrqa .ts_plots .plt_model .plt_mdrqa .plt_hidim .animation
@@ -133,6 +135,9 @@ $(PLT_MDRQA): $(SIM_MDRQA_DATA) .plt_mdrqa ;
 .plt_mdrqa: plot_comparison_to_mdrqa.R
 	Rscript $<
 	@touch $@
+
+$(PLT_EXTREME): plot_extreme_coupling.R $(MODEL_DATA)
+	Rscript $<
 
 $(PLT_HIDIM): $(SIM_HIDIM_DATA) .plt_hidim ;
 
