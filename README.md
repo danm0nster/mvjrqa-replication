@@ -25,7 +25,9 @@ The data set for the empirical example used in the article is openly available
 The main function mvjrqa() to perform MvJRQA analysis is contained in the
 file `R/mvjrqa.R`. It is used in the scripts to generate the data used in the
 article. Additional functions used in the scripts are all located in files
-in the directory `R`.
+in the directory `R`. We also rely on many packages --- first and foremost
+on the crqa package (Coco et al., 2021). See the section _Software and
+packages used_.
 
 ### Scripts
 
@@ -36,7 +38,7 @@ are divided into three categories:
   synthetic models. You must run these scripts (or use the provided
   pre-computed data) before you can use the scripts for creating figures.
 * Scripts for producing figures. These scripts use the generated data
-  to produce the plots used in the figures in the article. Aditionally,
+  to produce the plots used in the figures in the article. Additionally,
   one script produces an animation available as supplementary information.
 * Scripts to analyze empirical data. These scripts rely on data not 
   included here. In order to run these scripts you have to first
@@ -57,16 +59,35 @@ change to the directory where the script is located and then run:
 Rscript generate_linear_stochastic_data.R
 ```
 
+#### Running the scripts with make
+A Makefile has been included to automate running the required scripts
+for generating data from simulated models and for creating the plots 
+used in the figures as well as the movie. This should work on Mac OS,
+Linux and other Unix systems.
+
+All the simulation data and plots are already included in the
+sub-directories `data` and `plots` respectively. In order to replicate these
+files from the scripts provided you can simply type `make data` and 
+`make plots`. Note that _this will overwrite the original files_. 
+
+To speed up the executtion, you can process several scripts in parallel,
+by providing the j-flag to make along with the number of parallel processes
+to use. For example, using 6 CPU cores you can write:
+
+```
+make -j6 data
+```
+
+and
+
+```
+make -j6 plots
+```
+
 #### Data generating scripts
 
-**TODO:** Add pre-computed data as CSV files in a separate directory (e.g.,
-data/precomputed)
-
-**TODO:** Or maybe it is easier to just include them in the regular place
-and then users can overwrite them if they run the scripts. 
-
 The list below shows the scripts that generate data and the output files
-generated:
+generated. Running the scripts again will overwrite the original files.
 
 * generate_linear_stochastic_data.R
   - data/linear_stochastic_coupling_sweep.csv
@@ -96,18 +117,19 @@ generated:
 
 #### Scripts for producing figures
 
+Run these scripts individually using Rscript or use `make plots` to 
+run the scripts in series or `make -j6 plots` to run them in parallel.
+
 * plot_model_time_series.R
 * plot_model_results.R
 * plot_comparison_to_mdrqa.R
 * plot_extreme_coupling.R
 * plot_high_dimensional_lorenz96.R
-* plot_jrr.R **TODO:** Is this needed for SI?
 * create_mvjrp_animation.R
 
 #### Scripts to analyze empirical data
 
-**TODO:** Add and describe this script.
-**TODO:** Add any new packages from this script to list below.
+**TODO:** Add and describe the scripts.
 
 ## Software and packages used
 The scripts use R (R Core Team, 2025) and the following packages:
@@ -122,7 +144,7 @@ The scripts use R (R Core Team, 2025) and the following packages:
 * edf: Henelius, 2016.
 * gridExtra: Auguie, 2017.
 * ggplot2: Wickham, 2016.
-* ggrepel: Slowikowski, 2024. ** NOTE: This may not be used after all! **
+* ggrepel: Slowikowski, 2024.
 * latex2exp: Meschiari, 2022.
 * lme4: Bates et al., 2015.
 * lmerTest: Kuznetsova et al., 2017.
