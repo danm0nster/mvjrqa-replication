@@ -23,7 +23,6 @@ rm(list = ls())
 library(readr)
 library(tidyr)
 library(performance)
-library(car)
 library(dplyr)
 library(lme4)
 library(lmerTest)
@@ -64,17 +63,14 @@ df2 <- df2 |>
 # Models of eye type on log of JRR, DET, and DENTR
 m1 <- lmer(logJRR ~ Eye_Type + (1 | subject_id), data = df2)
 summary(m1)
-vif(m1)
 r2_nakagawa(m1)
 
 m1 <- lmer(logDET ~ Eye_Type + (1  | subject_id), data = df2)
 summary(m1)
-vif(m1)
 r2_nakagawa(m1)
 
 m1 <- lmer(logDENTR ~ Eye_Type + (1 | subject_id), data = df2)
 summary(m1)
-vif(m1)
 r2_nakagawa(m1)
 
 
@@ -82,5 +78,4 @@ r2_nakagawa(m1)
 df2$JRCI <-  df2$JRR / (rowMeans(cbind(df2$RR1, df2$RR2))^2)
 m1 <- lmer(JRCI ~ Eye_Type + (1 | subject_id), data = df2)
 summary(m1)
-vif(m1)
 r2_nakagawa(m1)

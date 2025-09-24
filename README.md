@@ -153,7 +153,6 @@ The third script reads in the merged data and performs a regression analysis.
 The scripts use R (R Core Team, 2025) and the following packages:
 
 * animation: Xie, 2013; Xie et al., 2021.
-* car: Fox & Weisberg, 2019.
 * cowplot: Wilke, 2024.
 * crqa: Coco et al., 2021.
 * data.table: Barret et al., 2025.
@@ -197,10 +196,6 @@ Coco MI, Mønster D, Leonardi G, Dale R, Wallot S (2021). _Unidimensional and
   Multidimensional Methods for Recurrence Quantification Analysis with crqa._
   R Journal, *13*(1). doi:10.32614/RJ-2021-062
   <https://doi.org/10.32614/RJ-2021-062>.
-  
-Fox J, Weisberg S (2019).
-  _An R Companion to Applied Regression_, Third edition.
-  Sage, Thousand Oaks CA. <https://www.john-fox.ca/Companion/>.
   
 Goldberger, A., Amaral, L., Glass, L., Hausdorff, J., Ivanov, P. C., Mark,
   R., ... & Stanley, H. E. (2000). _PhysioBank, PhysioToolkit, and PhysioNet:
