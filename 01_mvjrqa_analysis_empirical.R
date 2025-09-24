@@ -17,9 +17,9 @@
 ## the value of the variable num_workers below. It should be less than the
 ## number of CPU cores available on your system.
 ##
-## Note also that around 32 GB of RAM per core is needed, so you need
-## sufficient memory for the number of cores used. E.g., if you have 64 GB
-## of RAM, you can only use two cores (workers).
+## Note also that around 40 GB of RAM per core is needed, so you need
+## sufficient memory for the number of cores used. E.g., if you have 128 GB
+## of RAM, you can only use three cores (workers).
 ##
 ## In order to run this script, you must first download the empirical data set
 ## by Shafei & Shadpour (2023) from Physionet.
@@ -104,7 +104,7 @@ loop_data_fun <-  function(i, x) {
                   read.annotations = TRUE, header.only = FALSE)
   eeg <- data.frame(eeg$signal) # convert to data frame
   # remove t-variables and downsample to 50 Hz
-  eeg <- eeg[seq(1, dim(eeg)[1], by = 10), seq(1,dim(eeg)[2], by = 2)]
+  eeg <- eeg[seq(1, dim(eeg)[1], by = 10), seq(1, dim(eeg)[2], by = 2)]
   drops <- c("EEGHEOGRCPz.data",
              "EEGHEOGLCPz.data",
              "EEGVEOGUCPz.data",

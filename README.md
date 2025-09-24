@@ -25,7 +25,7 @@ The data set for the empirical example used in the article is openly available
 The main function mvjrqa() to perform MvJRQA analysis is contained in the
 file `R/mvjrqa.R`. It is used in the scripts to generate the data used in the
 article. Additional functions used in the scripts are all located in files
-in the directory `R`. We also rely on many packages --- first and foremost
+in the directory `R`. We also rely on many packages — first and foremost
 on the crqa package (Coco et al., 2021). See the section _Software and
 packages used_.
 
@@ -49,6 +49,7 @@ The data generating scripts use random initial conditions, so in
 order to be reproducible, the random seed is set in each script
 and they run in a single thread.
 
+#### Running the scripts individually
 In order to avoid unintended side effects it is safest to run the
 scripts in a new R session. One simple way of doing this is to use
 `Rscript` (Unix, Linux, Mac OS) or `Rscript.exe` (Windows). For
@@ -128,8 +129,25 @@ run the scripts in series or `make -j6 plots` to run them in parallel.
 * create_mvjrp_animation.R
 
 #### Scripts to analyze empirical data
+There are three scripts to analyze the empirical dataset and they must be
+run in the following order:
 
-**TODO:** Add and describe the scripts.
+* 01_mvjrqa_analysis_empirical.R
+* 02_merge_mvjrqa_files.R
+* 03_regression_mvjrqa.R
+
+The first script requires more resources to run, since it loops over all the
+observations and performs MvJRQA for EEG and 2D eye tracking as well as EEG
+and 3D eye tracking data. This script uses parallel processing and you have
+to set the number of worker processes in the script if you want to change the
+default to tailor it to your own computing environment (see notes in the 
+script header). **Note:** This script can take a long time to run and requires
+a sufficient amount of memory (see notes in the script header).
+
+The second script merges the data created by the first script into the file
+`results/mvjrqa.csv`. 
+
+The third script reads in the merged data and performs a regression analysis.
 
 ## Software and packages used
 The scripts use R (R Core Team, 2025) and the following packages:
