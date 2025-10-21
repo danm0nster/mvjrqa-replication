@@ -19,7 +19,8 @@
 ##
 ## ---------------------------
 
-find_threshold <- function(ts, target_pct, rescale = 0, normalize = 0,
+find_threshold <- function(ts, target_pct, tolerance = 0.5,
+                           rescale = 0, normalize = 0,
                            delay = 1, embed = 1) {
   # Ensure ts is a data frame
   ts <- as.data.frame(ts)
@@ -77,17 +78,31 @@ find_threshold <- function(ts, target_pct, rescale = 0, normalize = 0,
     stop("Distance values are too uniform for threshold estimation.")
   }
   # Solve for threshold using root-finding
-  rad <- uniroot(
+  result <- uniroot(
     f,
     c(0.05, 50),
     lower = 0.00001,
     tol = 0.01,
     maxiter = 25,
     extendInt = "yes",
-    trace = TRUE)$root
-  # Check whether rad is bigger 0
+    trace = TRUE)
+  rad <- result$root
+  # Check whether rad is bigger than 0
   if (rad <= 0) {
     rad <-  min(dists[dists > 0])
+  }
+  # Check if the recurrence rate is within the given tolerance
+  # and issue a warning if it is not.
+  if (abs(result$f.root) > tolerance) {
+    rr_rounding <- max(0, 1 - floor(log10(tolerance)))
+    rr_achieved <- round(result$f.root + target_pct, rr_rounding)
+    warning("Unable to set radius to give RR within tolerance\n",
+            "  Target RR = ", target_pct, "\n",
+            "  Achieved RR = ", rr_achieved, "\n",
+            "  Radius r = ", rad, "\n",
+            "  This is a warning, please check your results.",
+            call. = TRUE
+            )
   }
   return(rad)
 }
