@@ -64,8 +64,10 @@ source("R/mvjrqa.R")
 source("R/utils.R")
 library(parallel)
 
+EXCLUDE_LARGE_FILES <- TRUE
+
 # Set the number of workers (# worker processes <= # CPU cores)
-num_workers <- 6
+num_workers <- 1
 
 # Individual files are written to results/eye2d and results/eye3d
 eye2d_path <- "results/eye2d"
@@ -78,8 +80,15 @@ create_dir_if_not_present(eye3d_path)
 
 # Exclude the two EEG files and the two eye files that are not used.
 eeg_exclude <- c("21_3_4.edf", "21_3_5.edf")
+# Exclude some large files, to avoid integer overflow in vectors and matrices.
+if (EXCLUDE_LARGE_FILES) {
+  large_files <- c("24_3_4.edf", "12_3_2.edf", "3_1_1.edf")
+  eeg_exclude <- c(eeg_exclude, large_files)
+}
 # Get the file names from the performance data file
-perf <- read_csv("empirical_data/PerformanceScores.csv", quote = "'") |>
+perf <- read_csv("empirical_data/PerformanceScores.csv",
+		 show_col_types = FALSE,
+		 quote = "'") |>
   filter(!(`EEG File Name` %in% eeg_exclude))
 
 eeg_data <- perf$`EEG File Name`
@@ -93,12 +102,12 @@ data_files <- data.frame(
   try = perf$Try
 )
 
-# Create a vector of row index for parallellization
+# Create a vector of row indices for parallelization
 i_vec <-  1:nrow(data_files) # vector defining the data files for loop_data_fun
-
 ### Function for parallelization
 loop_data_fun <-  function(i, x) {
   DRYRUN <- FALSE # When set the mvjrqa will be skipped to allow testing
+  targetRR <- c(1, 2, 5, 8, 16, 32, 64) # The RR values to compute
   # load and sort eeg data
   eeg <- read.edf(paste0("empirical_data/EEG_FLS/", data_files$eeg_data[i]),
                   read.annotations = TRUE, header.only = FALSE)
@@ -151,138 +160,155 @@ loop_data_fun <-  function(i, x) {
   }))
   # create variable that codes for rows with no data point outside of 3SD
   SD3count <- rowSums(outside_bounds)
+  # TODO: Do not remove outside +/- 3 SD
   # remove data accordingly
-  eeg <- eeg[SD3count == 0, ]
-  eye_2d <- eye_2d[SD3count == 0, ]
-  eye_3d <- eye_3d[SD3count == 0, ]
-  rm(list = c("stats", "outside_bounds", "SD3count"))
+  # eeg <- eeg[c == 0, ]
+  # eye_2d <- eye_2d[SD3count == 0, ]
+  # eye_3d <- eye_3d[SD3count == 0, ]
+    rm(list = c("stats", "outside_bounds", "SD3count"))
   # length of final data set
   le3 <- dim(eeg)[1]
   # run analysis on eeg and 2d eye data
-  if (DRYRUN) {
-    # If DRYRUN is TRUE use test data
-    eeg_eye2d <- data.frame(
-      subject_id = data_files$subject_id[i],
-      task_id = data_files$task_id[i],
-      try = data_files$try[i],
-      eye2d_RR1 = 1,
-      eye2d_RR2 = 2,
-      eye2d_JRR = 3,
-      eye2d_DET = 4,
-      eye2d_LAM = 5,
-      eye2d_DENTR = 6,
-      eye2d_RAD1 = 7,
-      eye2d_RAD2 = 8,
-      eye2d_len1 = 9,
-      eye2d_len2 = 10,
-      eye2d_len3 = 11
-    )
-  } else {
-    res <- mvjrqa(as.matrix(eye_2d),
-                  as.matrix(eeg),
-                  delay_1 = 1,
-                  embed_1 = 1,
-                  radius_1 = 10,
-                  delay_2 = 1,
-                  embed_2 = 1,
-                  radius_2 = 1,
-                  rescale = 0,
-                  normalize = 0,
-                  mindiagline = 2,
-                  minvertline = 2,
-                  tw = 1,
-                  whiteline = TRUE,
-                  recpt = FALSE,
-                  side = "both",
-                  metric = "euclidean",
-                  datatype = "continuous",
-                  setrec = TRUE,
-                  targetrec = 5)
-    # store RR for individual RPs and JRP
-    eeg_eye2d <- data.frame(
-      subject_id = data_files$subject_id[i],
-      task_id = data_files$task_id[i],
-      try = data_files$try[i],
-      eye2d_RR1 = res[[1]]$RR,
-      eye2d_RR2 = res[[2]]$RR,
-      eye2d_JRR = res[[3]]$RR,
-      eye2d_DET = res[[3]]$DET,
-      eye2d_LAM = res[[3]]$LAM,
-      eye2d_DENTR = res[[3]]$DENTR,
-      eye2d_RAD1 = res[[1]]$radius,
-      eye2d_RAD2 = res[[2]]$radius,
-      eye2d_len1 = le1,
-      eye2d_len2 = le2,
-      eye2d_len3 = le3
-    )
+  eeg_eye2d <- data.frame()
+  eeg_eye3d <- data.frame()
+  for (rr_target in targetRR) {
+    if (DRYRUN) {
+      # If DRYRUN is TRUE use test data
+      eeg_eye2d <- data.frame(
+        subject_id = data_files$subject_id[i],
+        task_id = data_files$task_id[i],
+        try = data_files$try[i],
+        eye2d_RR1 = 1,
+        eye2d_RR2 = 2,
+        eye2d_JRR = 3,
+        eye2d_DET = 4,
+        eye2d_LAM = 5,
+        eye2d_DENTR = 6,
+        eye2d_RAD1 = 7,
+        eye2d_RAD2 = 8,
+        eye2d_len1 = 9,
+        eye2d_len2 = 10,
+        eye2d_len3 = 11
+      )
+    } else {
+      res <- mvjrqa(as.matrix(eye_2d),
+                    as.matrix(eeg),
+                    delay_1 = 1,
+                    embed_1 = 1,
+                    radius_1 = 10,
+                    delay_2 = 1,
+                    embed_2 = 1,
+                    radius_2 = 1,
+                    rescale = 0,
+                    normalize = 0,
+                    mindiagline = 2,
+                    minvertline = 2,
+                    tw = 1,
+                    whiteline = TRUE,
+                    recpt = FALSE,
+                    side = "both",
+                    metric = "euclidean",
+                    datatype = "continuous",
+                    setrec = TRUE,
+                    targetrec = rr_target)
+      # store RR for individual RPs and JRP
+      eeg_eye2d <- rbind(
+        eeg_eye2d,
+        data.frame(
+          subject_id = data_files$subject_id[i],
+          task_id = data_files$task_id[i],
+          try = data_files$try[i],
+          target_RR = rr_target,
+          eye2d_RR1 = res[[1]]$RR,
+          eye2d_RR2 = res[[2]]$RR,
+          eye2d_JRR = res[[3]]$RR,
+          eye2d_DET = res[[3]]$DET,
+          eye2d_LAM = res[[3]]$LAM,
+          eye2d_DENTR = res[[3]]$DENTR,
+          eye2d_RAD1 = res[[1]]$radius,
+          eye2d_RAD2 = res[[2]]$radius,
+          eye2d_len1 = le1,
+          eye2d_len2 = le2,
+          eye2d_len3 = le3
+        )
+      )
+    }
+    write.table(eeg_eye2d,
+                file = paste0(eye2d_path, "/eye2d_", i, "_results.txt"),
+                sep = ",", row.names = FALSE)
+    rm(list = "res")
+    # run analysis on eeg and 3d eye data
+    if (DRYRUN) {
+      # If DRYRUN is TRUE use test data
+      eeg_eye3d <- data.frame(
+        subject_id = data_files$subject_id[i],
+        task_id = data_files$task_id[i],
+        try = data_files$try[i],
+        eye3d_RR1 = 1,
+        eye3d_RR2 = 2,
+        eye3d_JRR = 3,
+        eye3d_DET = 4,
+        eye3d_LAM = 5,
+        eye3d_DENTR = 6,
+        eye3d_RAD1 = 7,
+        eye3d_RAD2 = 8,
+        eye3d_len1 = 9,
+        eye3d_len2 = 10,
+        eye3d_len3 = 11
+      )
+    } else {
+      res <- mvjrqa(as.matrix(eye_3d),
+                    as.matrix(eeg),
+                    delay_1 = 1,
+                    embed_1 = 1,
+                    radius_1 = 10,
+                    delay_2 = 1,
+                    embed_2 = 1,
+                    radius_2 = 1,
+                    rescale = 0,
+                    normalize = 0,
+                    mindiagline = 2,
+                    minvertline = 2,
+                    tw = 1,
+                    whiteline = TRUE,
+                    recpt = FALSE,
+                    side = "both",
+                    metric = "euclidean",
+                    datatype = "continuous",
+                    setrec = TRUE,
+                    targetrec = rr_target)
+      # store RR for individual RPs and JRP
+      eeg_eye3d <- rbind(
+        eeg_eye3d,
+        data.frame(
+          subject_id = data_files$subject_id[i],
+          task_id = data_files$task_id[i],
+          try = data_files$try[i],
+          target_RR = rr_target,
+          eye3d_RR1 = res[[1]]$RR,
+          eye3d_RR2 = res[[2]]$RR,
+          eye3d_JRR = res[[3]]$RR,
+          eye3d_DET = res[[3]]$DET,
+          eye3d_LAM = res[[3]]$LAM,
+          eye3d_DENTR = res[[3]]$DENTR,
+          eye3d_RAD1 = res[[1]]$radius,
+          eye3d_RAD2 = res[[2]]$radius,
+          eye3d_len1 = le1,
+          eye3d_len2 = le2,
+          eye3d_len3 = le3
+        )
+      )
+    }
+    rm(list = "res")
+    write.table(eeg_eye3d,
+                file = paste0(eye3d_path, "/eye3d_", i, "_results.txt"),
+                sep = ",", row.names = FALSE)
   }
-  write.table(eeg_eye2d,
-              file = paste0(eye2d_path, "/eye2d_", i, "_results.txt"),
-              sep = ",", row.names = FALSE)
-  rm(list = c("res", "eeg_eye2d", "eye_2d"))
-  # run analysis on eeg and 3d eye data
-  if (DRYRUN) {
-    # If DRYRUN is TRUE use test data
-    eeg_eye3d <- data.frame(
-      subject_id = data_files$subject_id[i],
-      task_id = data_files$task_id[i],
-      try = data_files$try[i],
-      eye3d_RR1 = 1,
-      eye3d_RR2 = 2,
-      eye3d_JRR = 3,
-      eye3d_DET = 4,
-      eye3d_LAM = 5,
-      eye3d_DENTR = 6,
-      eye3d_RAD1 = 7,
-      eye3d_RAD2 = 8,
-      eye3d_len1 = 9,
-      eye3d_len2 = 10,
-      eye3d_len3 = 11
-    )
-  } else {
-    res <- mvjrqa(as.matrix(eye_3d),
-                  as.matrix(eeg),
-                  delay_1 = 1,
-                  embed_1 = 1,
-                  radius_1 = 10,
-                  delay_2 = 1,
-                  embed_2 = 1,
-                  radius_2 = 1,
-                  rescale = 0,
-                  normalize = 0,
-                  mindiagline = 2,
-                  minvertline = 2,
-                  tw = 1,
-                  whiteline = TRUE,
-                  recpt = FALSE,
-                  side = "both",
-                  metric = "euclidean",
-                  datatype = "continuous",
-                  setrec = TRUE,
-                  targetrec = 5)
-    # store RR for individual RPs and JRP
-    eeg_eye3d <- data.frame(
-      subject_id = data_files$subject_id[i],
-      task_id = data_files$task_id[i],
-      try = data_files$try[i],
-      eye3d_RR1 = res[[1]]$RR,
-      eye3d_RR2 = res[[2]]$RR,
-      eye3d_JRR = res[[3]]$RR,
-      eye3d_DET = res[[3]]$DET,
-      eye3d_LAM = res[[3]]$LAM,
-      eye3d_DENTR = res[[3]]$DENTR,
-      eye3d_RAD1 = res[[1]]$radius,
-      eye3d_RAD2 = res[[2]]$radius,
-      eye3d_len1 = le1,
-      eye3d_len2 = le2,
-      eye3d_len3 = le3
-    )
-  }
-  write.table(eeg_eye3d,
-              file = paste0(eye3d_path, "/eye3d_", i, "_results.txt"),
-              sep = ",", row.names = FALSE)
-  rm(list = c("res", "eeg_eye3d", "eye_3d"))
-  rm(list = "eeg")
+    rm(list = c("eeg_eye3d", "eye_3d"))
+    rm(list = c("eeg_eye2d", "eye_2d"))
+    rm(list = "eeg")
+    # Force garbage collection
+    trash <- gc()
 }
 
 ## Parallelization
@@ -295,6 +321,7 @@ clusterEvalQ(cl, {
   library("edf")
   source("R/mvjrqa.R")
   source("R/utils.R")
+  NULL
 })
 
 clusterExport(cl, c("data_files", "eye2d_path", "eye3d_path"))
