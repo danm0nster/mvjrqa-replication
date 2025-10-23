@@ -59,11 +59,9 @@ find_threshold <- function(ts, target_pct, tolerance = 0.5,
     "2" = as.data.frame(scale(ts)),
     stop("Invalid normalize option: must be 0, 1, or 2")
   )
-  # Compute pairwise distance matrix
-  dist_mat <- as.matrix(dist(as.matrix(ts)))
+  # Compute pairwise distances
+  dists <- dist(as.matrix(ts))
   rm(ts)
-  dists <- abs(dist_mat[lower.tri(dist_mat)])  # Use lower triangle only
-  rm(dist_mat)
   # Re-scale distances if needed
   dists <- switch(as.character(rescale),
                   `0` = dists,
@@ -82,7 +80,6 @@ find_threshold <- function(ts, target_pct, tolerance = 0.5,
     f,
     c(0.05, 50),
     lower = 0.00001,
-    tol = 0.01,
     maxiter = 25,
     extendInt = "yes",
     trace = TRUE)
