@@ -174,6 +174,9 @@ The scripts use R (R Core Team, 2025) and the following packages:
 * rgl: Murdoch & Adler, 2025.
 * tidyr: Wickham et al., 2024b.
 
+In order to reproduce the animation video, you also need to have
+[FFmpeg](https://www.ffmpeg.org/) installed on your system.
+
 ## References
 
 Auguie B (2017). _gridExtra: Miscellaneous Functions for "Grid" Graphics_.
