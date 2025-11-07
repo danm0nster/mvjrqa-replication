@@ -159,6 +159,7 @@ The scripts use R (R Core Team, 2025) and the following packages:
 * deSolve: Soetaert et al., 2010.
 * dplyr: Wickham et al., 2021.
 * edf: Henelius, 2016.
+* effectsize: Mattan et al., 2020.
 * gridExtra: Auguie, 2017.
 * ggplot2: Wickham, 2016.
 * ggrepel: Slowikowski, 2024.
@@ -194,6 +195,10 @@ Bates D, Maechler M, Bolker B, Walker S (2015).
 Bates D, Maechler M, Jagan M (2025). _Matrix: Sparse and Dense Matrix Classes
   and Methods_. R package version 1.7-2,
   <https://CRAN.R-project.org/package=Matrix>.
+  
+Ben-Shachar M, Lüdecke D, Makowski D (2020). effectsize: Estimation of Effect
+  Size Indices and Standardized Parameters. Journal of Open Source Software,
+  5(56), 2815. <https://doi.org/10.21105/joss.02815>.
 
 Coco MI, Mønster D, Leonardi G, Dale R, Wallot S (2021). _Unidimensional and
   Multidimensional Methods for Recurrence Quantification Analysis with crqa._
@@ -217,7 +222,7 @@ Lüdecke D,  Ben-Shachar M S, Patil I, Waggoner P, Makowski P, (2021).
   _performance: An R Package for Assessment, Comparison and Testing of
   Statistical Models._
   Journal of Open Source Software, *6*(60), 3139.
-  https://doi.org/10.21105/joss.03139
+  <https://doi.org/10.21105/joss.03139>.
 
 Meschiari S (2022). _latex2exp: Use LaTeX Expressions in Plots_.
   R package version 0.9.6, <https://CRAN.R-project.org/package=latex2exp>.
