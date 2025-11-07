@@ -53,8 +53,6 @@ logistic_model_coupling_sweep <- read_csv(
   "data/driven_coupled_logistic_maps_coupling_sweep.csv"
 )
 
-# TODO: Find values that are not too close, so curves do not clutter
-# Maybe 4, 8, 16?
 log_jrr_rr_plot_data <-  logistic_model_coupling_sweep |>
   filter(RR_target %in% c(4, 8, 16))
 
