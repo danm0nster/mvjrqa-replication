@@ -26,6 +26,7 @@ library(ggrepel)
 
 
 source("R/utils.R")
+source("R/bootstrap.R")
 # TODO: The summary functions here could use the function
 #       compute_sample_summary() from utils.R instead of replicating code here.
 
@@ -33,6 +34,7 @@ source("R/utils.R")
 jrc_plot <- function(joint_rr,
                      errorbars = c("CI", "SE", "Off"),
                      ci_level = 0.95, # Level for error bars when "CI"
+                     samples = 1000, # Number of bootstrap samples
                      coupling_name = "eta",
                      show_zero = FALSE, # If TRUE, will plot line at zero
                      plot_title = NULL,
@@ -81,8 +83,8 @@ jrc_plot <- function(joint_rr,
       jrci_mean = mean(jrci),
       jrci_sd = sd(jrci),
       jrci_se = jrci_sd / sqrt(n()),
-      jrci_ci_lo = lower_ci(jrci),
-      jrci_ci_hi = upper_ci(jrci),
+      jrci_ci_lo = lower_ci(jrci, samples = samples),
+      jrci_ci_hi = upper_ci(jrci, samples = samples),
       .groups = "drop"
     ) |>
     ungroup()
