@@ -160,19 +160,7 @@ loop_data_fun <-  function(i, x) {
   # remove variables with 0 SD
   eeg <- eeg[, stats[2, ] > 0]
   stats <- stats[, stats[2, ] > 0]
-  # remove data outside +/-3 SD
-  outside_bounds <- as.data.frame(lapply(names(eeg), function(var) {
-    # Accessing eeg directly and stats by row and column names
-    abs(eeg[[var]] - stats["mean", var]) >= 3 * stats["sd", var]
-  }))
-  # create variable that codes for rows with no data point outside of 3SD
-  SD3count <- rowSums(outside_bounds)
-  # TODO: Do not remove outside +/- 3 SD
-  # remove data accordingly
-  # eeg <- eeg[c == 0, ]
-  # eye_2d <- eye_2d[SD3count == 0, ]
-  # eye_3d <- eye_3d[SD3count == 0, ]
-    rm(list = c("stats", "outside_bounds", "SD3count"))
+  rm(list = c("stats"))
   # length of final data set
   le3 <- dim(eeg)[1]
   # run analysis on eeg and 2d eye data
