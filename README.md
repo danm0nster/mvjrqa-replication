@@ -132,9 +132,10 @@ run the scripts in series or `make -j6 plots` to run them in parallel.
 There are three scripts to analyze the empirical dataset and they must be
 run in the following order:
 
-* 01_mvjrqa_analysis_empirical.R
-* 02_merge_mvjrqa_files.R
-* 03_regression_mvjrqa.R
+* 01_empirical_mvjrqa_analysis.R
+* 02_empirical_merge_files.R
+* 03_empirical_mvjrqa_regression.R
+* 04_empirical_plots.R
 
 The first script requires more resources to run, since it loops over all the
 observations and performs MvJRQA for EEG and 2D eye tracking as well as EEG
@@ -148,6 +149,10 @@ The second script merges the data created by the first script into the file
 `results/mvjrqa.csv`. 
 
 The third script reads in the merged data and performs a regression analysis.
+
+The fourth scripts creates plots of the joint recurrence coupling indicator,
+example time series for a single experimental trial, and some diagnostic
+plots for the supplementary information.
 
 ## Software and packages used
 The scripts use R (R Core Team, 2025) and the following packages:
@@ -215,7 +220,7 @@ Henelius A (2016). _edf: Read Data from European Data Format (EDF and EDF+)
 
 Kuznetsova A, Brockhoff PB, Christensen RHB (2017).
   _lmerTest Package: Tests in Linear Mixed Effects Models._
-  Journal of Statistical Software, *82*(13), 1-26. doi:10.18637/jss.v082.i13
+  # Journal of Statistical Software, *82*(13), 1-26. doi:10.18637/jss.v082.i13
   <https://doi.org/10.18637/jss.v082.i13>.
 
 Lüdecke D,  Ben-Shachar M S, Patil I, Waggoner P, Makowski P, (2021).
