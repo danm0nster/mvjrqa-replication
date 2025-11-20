@@ -12,7 +12,9 @@
 ##
 ## Notes:
 ##
-## 
+## Merges output from 01_empirical_mvjrqa_analysis.R
+##
+## The result is saved in the file: results/mvjrqa.csv
 ##
 ## ---------------------------
 
@@ -47,16 +49,13 @@ for (f in files) {
   eye3d = rbind(eye3d, df)
 }
 
-# Exclude these two files, since there are issues with them
-eeg_exclude <- c("21_3_4.edf", "21_3_5.edf")
-
 # Read performance data and rename some variables for joining
 perf <- read_csv(
-  "empirical_data/PerformanceScores.csv",
-  quote = "'",
+  "empirical_data/PerformanceScores_fixed.csv",
+  # quote = "'", #" Use for original, not fixed file
   show_col_types = FALSE) |> 
-  rename("Gender(F:Female, M:Male)" = "Gender(F:Female; M:Male)") |> 
-  filter(!(`EEG File Name` %in% eeg_exclude)) |> 
+  # Rename only if using original, not fixed file
+  # rename("Gender(F:Female, M:Male)" = "Gender(F:Female; M:Male)") |> 
   rename(
     subject_id = `Subject ID`,
     task_id = `Task ID`,
@@ -64,12 +63,13 @@ perf <- read_csv(
   )
 
 # Merge performance data with the MvJRQA results
-merged_data <- left_join(perf,
+merged_data <- right_join(perf,
                          eye2d,
                          by = c("subject_id", "task_id", "try"))
 merged_data <- left_join(merged_data,
                          eye3d,
-                         by = c("subject_id", "task_id", "try"))
+                         by = c("subject_id", "task_id", "try", "target_RR"))
 
 # Write result to CSV file
 write_csv(merged_data, file = "results/mvjrqa.csv")
+
