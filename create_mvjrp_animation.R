@@ -29,6 +29,9 @@ source("R/mvjrqa.R")
 source("R/lorenz_harmonic.R")
 source("R/utils.R")
 
+# Set the random seed
+set.seed(36396)
+
 # Make sure directory "./plots" exists. This is where movie and plot will be
 # saved.
 create_dir_if_not_present("plots")
@@ -57,7 +60,6 @@ lagged_rr_data <- data.frame()
 couplings <- seq(0, 1.28, 0.04)
 
 
-# TODO: Put data generation into a separate script
 for (cc in couplings) {
   # Run the model to produce data
   model_data <- lorenz_harmonic(n = 500,
@@ -85,11 +87,6 @@ for (cc in couplings) {
                         delay, embed, radius,
                         setrec = TRUE,
                         targetrec = fixed_rr)
-  # TODO: Remove this test code
-  # Test
-  # plot_rp(rqa_results$rp_list[[1]])
-
-  # TODO: Is this needed?
   # Save the sparse matrix versions
   rp_1_matrix[[length(rp_1_matrix) + 1]] <- rqa_results$rp_list[[1]]
   rp_2_matrix[[length(rp_2_matrix) + 1]] <- rqa_results$rp_list[[2]]
@@ -109,8 +106,6 @@ for (cc in couplings) {
 } # End loop over coupling
 
 
-# Note this zooms in on the first 100 x 100 points in the RP.
-# TODO: Set a parameter to change this. Maybe no zoom at all?
 plot_size <- dim(rp_1_matrix[[1]])[1] # Can be set to smaller value to zoom in
 
 ###########################

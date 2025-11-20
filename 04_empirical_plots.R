@@ -230,8 +230,6 @@ rr_jrci <- rr_long |>
     "RR2" ~ "2",
     "JRR" ~ "j"))
 
-# TODO: Report number of excluded observations for 2D, 3D, EEG and each target_RR
-
 single_jrc <- jrc_plot(rr_jrci,
                     errorbars = "CI",
                     ci_level = 0.95,

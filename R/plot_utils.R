@@ -27,8 +27,6 @@ library(ggrepel)
 
 source("R/utils.R")
 source("R/bootstrap.R")
-# TODO: The summary functions here could use the function
-#       compute_sample_summary() from utils.R instead of replicating code here.
 
 ########### Function to produce Joint Recurrence Coupling Plot
 jrc_plot <- function(joint_rr,

@@ -54,6 +54,7 @@ mvjrqa_long <- mvjrqa  |>
     names_pattern = "eye(\\d+d)_(.*)")
     
 total_obs <- nrow(mvjrqa_long)
+message("Total number of observations: ", total_obs)
 
 rr_tol <- 1.5 # Accepted maximum deviation from target_RR
 
@@ -63,7 +64,10 @@ mvjrqa_1 <- mvjrqa_long |>
 
 # Report number of removed observations from 2D Eye tracking
 n_rem_1 <-  total_obs - nrow(mvjrqa_1)
-message("Observations removed because RR1 is outside tolerance: ", n_rem_1)
+message("Removed ",
+        n_rem_1,
+        " observations from 2D eye tracking because |RR - RR_target| > ",
+        rr_tol)
 
 # Filter on RR1 deviation from target_RR
 mvjrqa_2 <- mvjrqa_1 |> 
@@ -71,10 +75,10 @@ mvjrqa_2 <- mvjrqa_1 |>
 
 # Report number of removed observations from 3D Eye tracking
 n_rem_2 <-  nrow(mvjrqa_1) - nrow(mvjrqa_2)
-message("Observations removed because RR2 is outside tolerance: ", n_rem_2)
-
-# TODO: make a record of how many observations we remove because
-# we require RR1 and RR2 not to deviate too much from target_RR.
+message("Removed ",
+        n_rem_2,
+        " observations from 3D eye tracking because |RR - RR_target| > ",
+        rr_tol)
 
 # factor and log-transform variables
 mvjrqa_clean <- mvjrqa_2 |>
