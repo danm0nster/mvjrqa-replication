@@ -2,7 +2,7 @@
 ##
 ## Script name: 04_empirical_plots.R
 ##
-## Purpose of script: Plot results of MvJRQA analysis
+## Purpose of script: Plot results of MvJRQA analysis and example time series
 ##
 ## Author: Dan Moenster & Sebastian Wallot
 ##
@@ -12,7 +12,9 @@
 ##
 ## Notes:
 ##
-##
+## The random seed is set to ensure reproducibility of bootstrapped
+## error bars in the plots. Any deviation from the published results
+## with a different random seed should be small enough to be ignored.
 ##
 ## ---------------------------
 
@@ -25,6 +27,8 @@ library(tidyr)
 library(ggplot2)
 library(patchwork)
 source("R/plot_utils.R")
+
+set.seed(52328)
 
 results <- read_csv("results/mvjrqa.csv", show_col_types = FALSE)
 
@@ -52,7 +56,7 @@ dimension_colours <- c(
 # Remove rows where RR1 deviates from target_RR by more than tolerance
 jrci_plots <- list()
 plot_count <- 1
-tolerances <- c(0.1, 0.5, 1, 2, 4, 10)
+tolerances <- c(0.2, 0.5, 1, 2, 4, 9)
 
 for (tol in tolerances) {
   abs_rr_tol <- tol
@@ -70,7 +74,7 @@ for (tol in tolerances) {
       "RR2" ~ "2",
       "JRR" ~ "j"))
   
-  ylimits <- c(0.0065, 0.0116)
+  ylimits <- c(0.008, 0.011)
   
   eeg_jrc <- jrc_plot(rr_jrci,
                       errorbars = "CI",
@@ -83,8 +87,8 @@ for (tol in tolerances) {
              label =  paste("delta == ", tol),
              parse = TRUE,
              size = 22 / .pt) +
-    scale_y_continuous(labels = function(x) x * 1000,
-                       name = bquote(JRR/RR^2%*%10^3),
+    scale_y_continuous(labels = function(x) x * 100,
+                       name = bquote(JRR/RR^2%*%100~"%"),
                        limits = ylimits)  +
     theme(text = element_text(size = 22))
   
@@ -235,8 +239,9 @@ single_jrc <- jrc_plot(rr_jrci,
                     coupling_name = "d") +
   scale_color_manual(values = dimension_colours,
                      aesthetics = c("colour", "fill")) +
-  scale_y_continuous(name = bquote(JRR/RR^2),
-                     limits = c(0.009, 0.011))  +
+  scale_y_continuous(labels = function(x) x * 100,
+                     name = bquote(JRR/RR^2%*%100~"%"),
+                     limits = c(0.93, 1.08) / 100)  + 
   theme(text = element_text(size = 22))
 
 
