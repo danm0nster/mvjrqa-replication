@@ -1,6 +1,6 @@
 ## ---------------------------
 ##
-## Script name: 01_mvjrqa_analysis_empirical.R
+## Script name: 01_empirical_mvjrqa_analysis.R
 ##
 ## Purpose of script: Perform MvJRQA analysis in parallel
 ##

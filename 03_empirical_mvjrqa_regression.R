@@ -1,6 +1,6 @@
 ## ---------------------------
 ##
-## Script name: 03_regression_mvjrqa.R
+## Script name: 03_empirical_mvjrqa_regression.R
 ##
 ## Purpose of script: Perform regression analysis on MvJRQA results
 ##

@@ -1,6 +1,6 @@
 ## ---------------------------
 ##
-## Script name: 02_merge_mvjrqa_files.R
+## Script name: 02_empirical_merge_files.R 
 ##
 ## Purpose of script: Gather and merge files from MvJRQA analysis
 ##
