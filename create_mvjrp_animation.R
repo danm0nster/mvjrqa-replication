@@ -151,7 +151,7 @@ for (p in 1:length(rp_j_list)) {
                x = 10, 
                y = 0.95 * plot_size,
                fill = "white",
-               label.size = 0,
+               linewidth = 0,
                hjust = "left",
                label = paste("c = ", round(joint_rr$c[p], 2),
                              "\nRR = ", round(joint_rr$rr_2[p], 2))) +
