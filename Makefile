@@ -54,6 +54,8 @@ PLT_EXTREME = plots/extreme_coupling.pdf
 
 PLT_NOISE = plots/lorenz_noise.pdf
 
+PLT_JRCI = plots/jrci_models.pdf
+
 ANIMATION = plots/mvjrp_animation_snapshot.pdf \
 	plots/mvjrp_animation.mp4
 
@@ -64,7 +66,7 @@ default: data
 
 data: $(SIM_DATA)
 
-plots: $(TS_PLOTS) $(SIM_PLOTS) $(PLT_EXTREME) $(PLT_NOISE) 
+plots: $(TS_PLOTS) $(SIM_PLOTS) $(PLT_EXTREME) $(PLT_NOISE) $(PLT_JRCI)
 
 clean:
 	rm .linear .logistic .lorenz .lorenz96 .hidim .mdrqa .ts_plots .plt_model .plt_mdrqa .plt_hidim .animation
@@ -142,6 +144,9 @@ $(PLT_EXTREME): plot_extreme_coupling.R $(MODEL_DATA)
 	Rscript $<
 
 $(PLT_NOISE): plot_noise_effect.R
+	Rscript $<
+
+$(PLT_JRCI): plot_conceptual_jrci.R
 	Rscript $<
 
 $(PLT_HIDIM): $(SIM_HIDIM_DATA) .plt_hidim ;

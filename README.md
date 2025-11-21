@@ -134,6 +134,7 @@ run the scripts in series or `make -j6 plots` to run them in parallel.
 * plot_extreme_coupling.R
 * plot_high_dimensional_lorenz96.R
 * plot_noise_effect.R
+* plot_conceptual_jrci.R
 * create_mvjrp_animation.R
 
 #### Scripts to analyze empirical data
