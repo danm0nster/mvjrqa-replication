@@ -11,10 +11,12 @@ This repository contains R code to replicate the results in the article
 
 
 ## Data availability
-All of the synthetic model data set are included in this repository and scripts
-to reproduce the data sets are provided (see below). 
+All of the synthetic model datasets are included in this repository and scripts
+to reproduce the datasets are provided (see below). The output from the
+empirical data analysis is also included, and can also be reproduced if the
+original data are downloaded.
 
-The data set for the empirical example used in the article is openly available
+The dataset for the empirical example used in the article is openly available
 (Shafiei & Shadpour, 2023), but not included here. It is available through
 [PhysioNet](https://physionet.org/content/eeg-eye-gaze-for-fls-tasks/1.0.0/)
 (Goldberger et al., 2000), and described in an original publication
@@ -47,7 +49,7 @@ are divided into three categories:
   one script produces an animation available as supplementary information.
 * Scripts to analyze empirical data. These scripts rely on data not 
   included here. In order to run these scripts you have to first
-  download the empirical data set (see: Shafiei & Shadpour, 2023).
+  download the empirical dataset (see: Shafiei & Shadpour, 2023).
   See more details below in the section _Scripts to analyze empirical data_.
   
 The data generating scripts use random initial conditions, so in
