@@ -20,6 +20,11 @@ The data set for the empirical example used in the article is openly available
 (Goldberger et al., 2000), and described in an original publication
 (Shafiei et al., 2023).
 
+Note: There are errors in the file `PerformanceScores.csv` from the PhysioNet
+dataset that were not corrected at the time of publication, so we provide a
+corrected version here, named `PerformanceScores_fixed.csv` which is the
+version used in the scripts for analyzing the empirical data.
+
 ## List of scripts and their use
 
 The main function mvjrqa() to perform MvJRQA analysis is contained in the
@@ -71,7 +76,7 @@ sub-directories `data` and `plots` respectively. In order to replicate these
 files from the scripts provided you can simply type `make data` and 
 `make plots`. Note that _this will overwrite the original files_. 
 
-To speed up the executtion, you can process several scripts in parallel,
+To speed up the execution, you can process several scripts in parallel,
 by providing the j-flag to make along with the number of parallel processes
 to use. For example, using 6 CPU cores you can write:
 
@@ -220,7 +225,7 @@ Henelius A (2016). _edf: Read Data from European Data Format (EDF and EDF+)
 
 Kuznetsova A, Brockhoff PB, Christensen RHB (2017).
   _lmerTest Package: Tests in Linear Mixed Effects Models._
-  # Journal of Statistical Software, *82*(13), 1-26. doi:10.18637/jss.v082.i13
+   Journal of Statistical Software, *82*(13), 1-26. doi:10.18637/jss.v082.i13
   <https://doi.org/10.18637/jss.v082.i13>.
 
 Lüdecke D,  Ben-Shachar M S, Patil I, Waggoner P, Makowski P, (2021).
