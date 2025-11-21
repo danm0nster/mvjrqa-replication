@@ -52,6 +52,8 @@ PLT_HIDIM = plots/lorenz96_high_dim_time_series_plot.pdf \
 
 PLT_EXTREME = plots/extreme_coupling.pdf
 
+PLT_NOISE = plots/lorenz_noise.pdf
+
 ANIMATION = plots/mvjrp_animation_snapshot.pdf \
 	plots/mvjrp_animation.mp4
 
@@ -62,7 +64,7 @@ default: data
 
 data: $(SIM_DATA)
 
-plots: $(TS_PLOTS) $(SIM_PLOTS) $(PLT_EXTREME)
+plots: $(TS_PLOTS) $(SIM_PLOTS) $(PLT_EXTREME) $(PLT_NOISE) 
 
 clean:
 	rm .linear .logistic .lorenz .lorenz96 .hidim .mdrqa .ts_plots .plt_model .plt_mdrqa .plt_hidim .animation
@@ -77,7 +79,7 @@ clean:
 # and afterwards the hidden file is created or has its time stamp
 # updated with the touch command.
 #
-# A somewhat bothersome workaround, On Linux or with newer
+# A somewhat bothersome workaround. On Linux or with newer
 # make installed manually on Mac OS, we could simply use:
 # $(SIM_LINEAR_DATA) &: generate_linear_stochastic_data.R
 #	Rscript $<
@@ -137,6 +139,9 @@ $(PLT_MDRQA): $(SIM_MDRQA_DATA) .plt_mdrqa ;
 	@touch $@
 
 $(PLT_EXTREME): plot_extreme_coupling.R $(MODEL_DATA)
+	Rscript $<
+
+$(PLT_NOISE): plot_noise_effect.R
 	Rscript $<
 
 $(PLT_HIDIM): $(SIM_HIDIM_DATA) .plt_hidim ;

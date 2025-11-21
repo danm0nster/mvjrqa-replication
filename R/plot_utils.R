@@ -34,6 +34,8 @@ jrc_plot <- function(joint_rr,
                      ci_level = 0.95, # Level for error bars when "CI"
                      samples = 1000, # Number of bootstrap samples
                      coupling_name = "eta",
+                     linewidth = 2,
+                     linetype = "solid",
                      show_zero = FALSE, # If TRUE, will plot line at zero
                      plot_title = NULL,
                      csv_file = NULL) {
@@ -69,6 +71,7 @@ jrc_plot <- function(joint_rr,
     #
     mutate(jrci = RR_j / RR_12_mean^2)
   # Make a summary with means, sd, se and CI
+  if (errorbars != "Off") {
   joint_rr_summary_wide <- joint_rr_wide |>
     group_by(RR_target, coupling) |>
     summarise(
@@ -86,6 +89,18 @@ jrc_plot <- function(joint_rr,
       .groups = "drop"
     ) |>
     ungroup()
+  } else {
+    # No error $bars, so simply compute the mean (there may only be one sample)
+    joint_rr_summary_wide <- joint_rr_wide |>
+      group_by(RR_target, coupling) |>
+      summarise(
+        rr_mean = mean(RR_j),
+        rr_sub_mean = mean(RR_12_mean),
+        jrci_mean = mean(jrci),
+        .groups = "drop"
+      ) |>
+      ungroup()
+  }
   # Build the plot
   coupling_plot <- ggplot(joint_rr_summary_wide,
                           aes(x = RR_target,
@@ -110,7 +125,7 @@ jrc_plot <- function(joint_rr,
   }
   coupling_plot <- coupling_plot +
     geom_point(alpha = 0.8) +
-    geom_line(linewidth = 2) +
+    geom_line(linewidth = linewidth, linetype = linetype) +
     # Random null model
     geom_line(data = data.frame(RR_target = seq(rr_random_min, 100, 1)),
               aes(x = RR_target, y = 1 / 100),
