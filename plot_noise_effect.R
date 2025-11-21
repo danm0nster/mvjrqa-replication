@@ -126,7 +126,9 @@ for (nl in noise_levels) {
 jrc_plot(noise_data, errorbars = "Off", coupling_name = "xi",
          linewidth = 0.8, linetype = "dashed") +
   scale_color_manual(values = rep("black", length(noise_levels)),
-                     aesthetics = c("colour", "fill")) 
+                     aesthetics = c("colour", "fill")) +
+  theme(text = element_text(size = 22))
+
 
 plot_file_name <- paste0("plots/lorenz_noise.pdf")
 ggsave(plot_file_name, width = 1.5 * 4, height = 1.5 * 3)
