@@ -1,0 +1,21 @@
+
+\begin{table}
+\caption{\textbf{Regression results for MvJRQA.} The table shows fixed effects for the regression with JRCI as the dependent variable computed for EEG coupled with either 2D or 3D eye movement dynamics.}
+\begin{center}
+\begin{tabular}{l c c c c}
+\hline
+ & Estimate & SE & $t$ & $p$ \\
+\hline
+(Intercept)    & $-0.27$           & $0.10$ & $-2.61$ & $0.01$ \\
+               & $ [-0.47; -0.07]$ & $$     & $$      & $$     \\
+EyeType3D      & $0.34$            & $0.10$ & $3.33$  & $0.00$ \\
+               & $ [ 0.14;  0.54]$ & $$     & $$      & $$     \\
+\hline
+Num. obs.      & $443$             & $$     & $$      & $$     \\
+Conditional R2 & $0.10$            & $$     & $$      & $$     \\
+\hline
+\multicolumn{5}{l}{\scriptsize{\multicolumn{5}{p{0.6\linewidth}}{\small{Note: EyeType is a dummy variable that codes for whether 2D or 3D eye movements were used together with the EEG data. Hence, the predictor EyeType3D provides an estimated increment for the case where eye movements were 3D with the intercept being the reference category (i.e., 2D). Values in square brackets are 95\% CI.}}}}
+\end{tabular}
+\label{tab:regression}
+\end{center}
+\end{table}

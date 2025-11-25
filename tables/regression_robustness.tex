@@ -1,0 +1,22 @@
+
+\begin{table}
+\caption{\textbf{Robustness check on regression results for MvJRQA.} Model 1 is the same model shown in Table~\ref{tab:regression}, but including all 612 observations, i.e., no, observations were removed, even if $RR - RR_T > \delta$. Model 2 represents the other extreme, viz.\ removing the MvJRQA results for EEG combined with both the 2D and the 3D eye tracking results in all the cases where $RR - RR_T > \delta$ for 2D eye tracking.}
+\begin{center}
+\begin{tabular}{l c c c c c c c c}
+\hline
+ & \multicolumn{4}{c}{Model 1} & \multicolumn{4}{c}{Model 2} \\
+\cline{2-5} \cline{6-9}
+ & Estimate & SE & $t$ & $p$ & Estimate & SE & $t$ & $p$ \\
+\hline
+(Intercept)    & $-0.59$           & $0.09$ & $-6.25$ & $0.00$ & $-0.24$           & $0.11$ & $-2.12$ & $0.03$ \\
+               & $ [-0.77; -0.40]$ & $$     & $$      & $$     & $ [-0.45; -0.02]$ & $$     & $$      & $$     \\
+EyeType3D      & $1.15$            & $0.06$ & $20.34$ & $0.00$ & $0.38$            & $0.11$ & $3.32$  & $0.00$ \\
+               & $ [ 1.04;  1.26]$ & $$     & $$      & $$     & $ [ 0.15;  0.60]$ & $$     & $$      & $$     \\
+\hline
+Num. obs.      & $612$             & $$     & $$      & $$     & $274$             & $$     & $$      & $$     \\
+Conditional R2 & $0.51$            & $$     & $$      & $$     & $0.13$            & $$     & $$      & $$     \\
+\hline
+\end{tabular}
+\label{tab:robustness}
+\end{center}
+\end{table}

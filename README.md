@@ -181,12 +181,15 @@ The scripts use R (R Core Team, 2025) and the following packages:
 * lme4: Bates et al., 2015.
 * lmerTest: Kuznetsova et al., 2017.
 * Matrix: Bates et al., 2025.
+* modelbased: Makowski et al, 2025.
 * parallel: R Core Team, 2025.
 * patchwork: Pedersen, 2024.
-* performance: Lüdecke et al., 2021.
+* performance: Lüdecke et al., 2021a.
 * purrr: Wickham & Henry, 2025.
 * readr: Wickham et al., 2024a.
 * rgl: Murdoch & Adler, 2025.
+* see: Lüdecke et al., 2021b.
+* texreg: Leifeld, 2023.
 * tidyr: Wickham et al., 2024b.
 
 In order to reproduce the animation video, you also need to have
@@ -232,11 +235,29 @@ Kuznetsova A, Brockhoff PB, Christensen RHB (2017).
    Journal of Statistical Software, *82*(13), 1-26. doi:10.18637/jss.v082.i13
   <https://doi.org/10.18637/jss.v082.i13>.
 
-Lüdecke D,  Ben-Shachar M S, Patil I, Waggoner P, Makowski P, (2021).
+Leifeld, P. (2013).
+  _texreg: Conversion of Statistical Model Output in R to LATEX and HTML Tables._
+  Journal of Statistical Software, 55, 1–24.
+  <https://doi.org/10.18637/jss.v055.i08>
+
+Lüdecke D,  Ben-Shachar M S, Patil I, Waggoner P, Makowski P, (2021a).
   _performance: An R Package for Assessment, Comparison and Testing of
   Statistical Models._
   Journal of Open Source Software, *6*(60), 3139.
   <https://doi.org/10.21105/joss.03139>.
+
+Lüdecke, D., Patil, I., Ben-Shachar, M. S., Wiernik, B. M., Waggoner, P.,
+  & Makowski, D. (2021b). 
+  _see: An R Package for Visualizing Statistical Models._
+  Journal of Open Source Software, 6(64), 3393.
+  <https://doi.org/10.21105/joss.03393>
+
+Makowski, D., Ben-Shachar, M. S., Wiernik, B. M., Patil, I., Thériault,
+  R., & Lüdecke, D. (2025). _modelbased: An R package to make the most out of
+  your statistical models through marginal means, marginal effects, and
+  model predictions._
+  Journal of Open Source Software, 10(109), 7969.
+  <https://doi.org/10.21105/joss.07969>
 
 Meschiari S (2022). _latex2exp: Use LaTeX Expressions in Plots_.
   R package version 0.9.6, <https://CRAN.R-project.org/package=latex2exp>.
