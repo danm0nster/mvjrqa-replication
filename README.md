@@ -158,6 +158,7 @@ The second script merges the data created by the first script into the file
 `results/mvjrqa.csv`. 
 
 The third script reads in the merged data and performs a regression analysis.
+This script also plots the model results and produces tables of the results.
 
 The fourth scripts creates plots of the joint recurrence coupling indicator,
 example time series for a single experimental trial, and some diagnostic
