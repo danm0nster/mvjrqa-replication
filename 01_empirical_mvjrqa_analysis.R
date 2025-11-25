@@ -81,7 +81,7 @@ eye3d_path <- "results/eye3d"
 create_dir_if_not_present(eye2d_path)
 create_dir_if_not_present(eye3d_path)
 
-# Exclude the two EEG files and the two eye files that are not used.
+# Exclude the two EEG files where the two eye files that are not present.
 eeg_exclude <- c("21_3_4.edf", "21_3_5.edf")
 # Exclude some large files, to avoid integer overflow in vectors and matrices.
 large_files <- c("24_3_4.edf", "12_3_1.edf", "12_3_2.edf", "3_1_1.edf",
