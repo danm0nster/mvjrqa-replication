@@ -126,7 +126,7 @@ lor_hi_dim_jrc_plot <- jrc_plot(lorenz_hi_dimc_rr_sweep,
   theme(text = element_text(size = 22))
 
 ggsave(lor_hi_dim_jrc_plot,
-       filename = "plots/lor_hi_dim_jrr_by_rr2_log_color.pdf",
+       filename = "plots/lor_hi_dim_jrci.pdf",
        width = 1.5 * 4, height = 1.5 * 3)
 
 

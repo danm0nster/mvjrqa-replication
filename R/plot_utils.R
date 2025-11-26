@@ -38,8 +38,10 @@ jrc_plot <- function(joint_rr,
                      linetype = "solid",
                      show_zero = FALSE, # If TRUE, will plot line at zero
                      plot_title = NULL,
+                     ylabel = c("jrci", "formula"),
                      csv_file = NULL) {
   errorbars <- match.arg(errorbars)
+  ylabel <- match.arg(ylabel)
   joint_rr_summary <- joint_rr |>
     group_by(RR_target, coupling, system) |>
     summarise(
@@ -137,10 +139,8 @@ jrc_plot <- function(joint_rr,
               inherit.aes = FALSE,
               color = "blue") +
     scale_x_log10() +
-    xlab("Sub-system RR (%)") +
-    ylab(TeX("$JRR / RR^2$")) +
     # The nudge gives warnings because of infinities in the log-scale, but
-    # seems to work, nonetheless.
+    # works, nonetheless.
     geom_text_repel(data = joint_rr_summary_wide |>
                       filter(RR_target == min(RR_target)),
                     aes(label = paste(coupling_name, " == ", coupling)),
@@ -151,7 +151,13 @@ jrc_plot <- function(joint_rr,
     theme_classic() +
     theme(legend.position = "none") +
     expand_limits(x = -0.5) + # To make room for geom_text_repel() labels
-    expand_limits(x = 100)
+    expand_limits(x = 100) +
+    xlab("Sub-system RR (%)")
+  if (ylabel == "jrci") {
+    coupling_plot <- coupling_plot + ylab("JRCI") 
+  } else if (ylabel == "formula") {
+    coupling_plot <- coupling_plot + ylab(TeX("$JRR / RR^2$")) 
+  }
   if (!is.null(plot_title)) {
     coupling_plot <- coupling_plot + labs(title = plot_title)
   }

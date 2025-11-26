@@ -130,7 +130,7 @@ lin_jrc_plot <- jrc_plot(linear_model_rr_sweep,
   theme(text = element_text(size = 22))
 plot(lin_jrc_plot)
 ggsave(lin_jrc_plot,
-       filename = "plots/linear_jrr_by_rr2_log_color.pdf",
+       filename = "plots/linear_jrci.pdf",
        width = 1.5 * 4, height = 1.5 * 3)
 
 #
@@ -211,7 +211,7 @@ lor_jrc_plot <- jrc_plot(lorenz_harmonic_rr_sweep,
 plot(lor_jrc_plot)
 
 ggsave(lor_jrc_plot,
-       filename = "plots/lor-osc_jrr_by_rr2_log_color.pdf",
+       filename = "plots/lor-osc_jrci.pdf",
        width = 1.5 * 4, height = 1.5 * 3)
 
 
@@ -250,5 +250,5 @@ lor96_jrc_plot <- jrc_plot(lor_96_jrc_data,
 plot(lor96_jrc_plot)
 
 ggsave(plot = lor96_jrc_plot,
-       filename = "plots/lor96_osc_jrr_by_rr2_log_color.pdf",
+       filename = "plots/lor96_osc_jrci.pdf",
        width = 1.5 * 4, height = 1.5 * 3)

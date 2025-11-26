@@ -31,7 +31,7 @@ ggplot() +
             color = "black") +
   scale_x_log10() +
   xlab("Sub-system RR (%)") +
-  ylab(TeX("$JRR / RR^2$")) +
+  ylab("JRCI") +
   theme_classic() +
   theme(text = element_text(size = 22))
 
