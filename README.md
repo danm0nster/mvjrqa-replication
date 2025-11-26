@@ -1,4 +1,5 @@
 [![CC BY 4.0][cc-by-shield]][cc-by]
+[![DOI](https://zenodo.org/badge/1045430498.svg)](https://doi.org/10.5281/zenodo.17724339)
 
 # Replication data and code for _MvJRQA_ 
 
