@@ -54,6 +54,8 @@ PLT_EXTREME = plots/extreme_coupling.pdf
 
 PLT_NOISE = plots/lorenz_noise.pdf
 
+PLT_PS = plots/harmonic_phase_space_coupling.pdf
+
 PLT_JRCI = plots/jrci_models.pdf
 
 ANIMATION = plots/mvjrp_animation_snapshot.pdf \
@@ -144,6 +146,9 @@ $(PLT_EXTREME): plot_extreme_coupling.R $(MODEL_DATA)
 	Rscript $<
 
 $(PLT_NOISE): plot_noise_effect.R
+	Rscript $<
+
+$(PLT_PS): plot_phase_space_coupling.R
 	Rscript $<
 
 $(PLT_JRCI): plot_conceptual_jrci.R
