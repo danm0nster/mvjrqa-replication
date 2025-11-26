@@ -88,7 +88,8 @@ for (tol in tolerances) {
              parse = TRUE,
              size = 22 / .pt) +
     scale_y_continuous(labels = function(x) x * 100,
-                       name = bquote(JRR/RR^2%*%100~"%"),
+                       # name = bquote(JRR/RR^2%*%100~"%"),
+                       name = bquote(JRCI%*%100~"%"),
                        limits = ylimits)  +
     theme(text = element_text(size = 22))
   
@@ -238,7 +239,8 @@ single_jrc <- jrc_plot(rr_jrci,
   scale_color_manual(values = dimension_colours,
                      aesthetics = c("colour", "fill")) +
   scale_y_continuous(labels = function(x) x * 100,
-                     name = bquote(JRR/RR^2%*%100~"%"),
+                     # name = bquote(JRR/RR^2%*%100~"%"),
+                     name = bquote(JRCI%*%100~"%"),
                      limits = c(0.93, 1.08) / 100)  + 
   theme(text = element_text(size = 22))
 
