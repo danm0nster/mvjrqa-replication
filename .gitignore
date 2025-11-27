@@ -6,6 +6,9 @@
 .RData
 .RDataTmp
 
+# File for test code
+TEST.R
+
 # User-specific files
 .Ruserdata
 

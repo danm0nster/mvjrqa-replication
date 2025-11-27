@@ -37,6 +37,17 @@ in the directory `R`. We also rely on many packages — first and foremost
 on the crqa package (Coco et al., 2021). See the section _Software and
 packages used_.
 
+In order to facilitate reproducibility `renv` is used to ensure the correct
+version of packages are installed. Before you run any of the scripts, you
+should therefore restore the environment by installing `renv` if you do not
+already have it and then running the restore function. You can do this by
+running these two commands in R:
+
+```
+install.packages("renv")
+renv::restore()
+```
+
 ### Scripts
 
 Below is a description of the scripts included in this repository. They
@@ -190,6 +201,7 @@ The scripts use R (R Core Team, 2025) and the following packages:
 * performance: Lüdecke et al., 2021a.
 * purrr: Wickham & Henry, 2025.
 * readr: Wickham et al., 2024a.
+* renv: Ushey & Wickham, 2025.
 * rgl: Murdoch & Adler, 2025.
 * see: Lüdecke et al., 2021b.
 * texreg: Leifeld, 2023.
@@ -294,6 +306,10 @@ Slowikowski K (2024).
 Soetaert Karline, Thomas Petzoldt, R. Woodrow Setzer (2010).
   Solving Differential Equations in R: Package deSolve.
   Journal of Statistical Software, 33(9), 1--25. doi:10.18637/jss.v033.i09
+
+Ushey K, Wickham H (2025). _renv: Project Environments_.
+  <https://doi.org/10.32614/CRAN.package.renv>, R package version 1.1.5,
+  <https://CRAN.R-project.org/package=renv>.
 
 Wickham, Hadley. _ggplot2: Elegant Graphics for Data Analysis_
   Springer-Verlag New York, 2016.
