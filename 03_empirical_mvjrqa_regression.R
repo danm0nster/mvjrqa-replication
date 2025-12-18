@@ -343,3 +343,10 @@ texreg::texreg(all_models,
                label = "tab:robustness",
                file = "tables/regression_robustness.tex"
 )
+
+# Report mean and SD for the RR used for the main analysis (m1)
+rr_vals <- c(mvjrqa_clean$RR1, mvjrqa_clean$RR2)
+rr_mean <- mean(rr_vals)
+rr_sd <- sd(rr_vals)
+message("RR M =  ", round(rr_mean, 2))
+message("RR SD = ", round(rr_sd, 2))
