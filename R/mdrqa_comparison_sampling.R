@@ -167,8 +167,7 @@ compute_logistic_system_mdrqa_comparison <- function(coupling = 1,
                                                      num_samples = 1,
                                                      sample_length = 500,
                                                      sample_skip = 300,
-                                                     csv_file_name = NULL,
-                                                     DEBUG = FALSE) {
+                                                     csv_file_name = NULL) {
   rr_values <- rr
   coupling_values <- coupling
   # Set delay and embed as in Mønster et al. (2017):
@@ -198,22 +197,6 @@ compute_logistic_system_mdrqa_comparison <- function(coupling = 1,
     for (rr_target in rr_values) {
       for (cc in coupling_values) {
         # Run the model to produce data
-        if (DEBUG) {
-          print("Arguments:")
-          print("")
-          print(paste("x0 = ", x_init[s]))
-          print(paste("y0 = ", y_init[s]))
-          print(paste("rx =",  rx))
-          print(paste("ry = ", ry))
-          print(paste("bxy = ", bxy))
-          print(paste("byx = ", byx))
-          print(paste("etax = ", cc))
-          print(paste("etay = ", cc))
-          print(paste("p = ", 30))
-          print(paste("phi = ", phi_init[s]))
-          print(paste("N =", sample_length))
-          print(paste("N_skip = ", sample_skip))
-        }
         model_data <- coupled_logistic_map(
           x0 = x_init[s],
           y0 = y_init[s],
