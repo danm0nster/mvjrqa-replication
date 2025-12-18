@@ -265,20 +265,29 @@ note_text <- paste(
 
 m1_note <- create_model_note(m1_models, note_text, width = 0.6)
 
-m1_caption <- paste(
-  "\\textbf{Regression results for MvJRQA.}",
-  "The table shows fixed effects for the regression with",
-  "JRCI as the dependent variable computed for EEG coupled with",
-  "either 2D or 3D eye movement dynamics."
+m1_caption <- paste0(
+  "\\textbf{Regression results for MvJRQA.} ", 
+  "The table shows fixed effects as standardized regression coefficients ",
+  "for the regression with JRCI as the dependent variable computed for EEG ",
+  "coupled with either 2D or 3D eye movement dynamics. ",
+  "Subsystem recurrence was fixed at $RR = ", target_rate, "\\%$ and ",
+  n_rem_1, " observations were removed because the recurrence rate differed ",
+  "from the target rate by more than ", rr_tol, " percentage points."
 )
 
 # Print a simple version to screen
 texreg::screenreg(m1_models,
+                  digits = 4,
                   stars = 0, # Omit stars for p-values
                   ci.test = NA, # Omit stars for CI test
                   ci.force = c(TRUE, FALSE, FALSE, FALSE),
                   custom.note = ""
 )
+
+# This one line using sjPlots, basically does the same thing,
+# but does not save to LaTeX and has CI on same line (too wide)
+# Uncomment to use
+# sjPlot::tab_model(m1_std, show.se = TRUE, show.stat = TRUE)
 
 # Save the full version to file in LaTeX format
 texreg::texreg(m1_models,
@@ -316,6 +325,10 @@ texreg::screenreg(all_models,
                   ci.test = NA, # Do not add stars for CI test
                   custom.note = ""
 )
+
+# sjPlots version.
+# Uncomment to use
+# sjPlot::tab_model(m2_std, m3_std, show.se = TRUE, show.stat = TRUE)
 
 texreg::texreg(all_models,
                custom.header = list("Model 1" = 1:4, "Model 2" = 5:8),
