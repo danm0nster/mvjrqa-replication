@@ -286,7 +286,7 @@ texreg::screenreg(m1_models,
 
 # This one line using sjPlots, basically does the same thing,
 # but does not save to LaTeX and has CI on same line (too wide)
-# Uncomment to use
+# Install sjPlots and uncomment to use
 # sjPlot::tab_model(m1_std, show.se = TRUE, show.stat = TRUE)
 
 # Save the full version to file in LaTeX format
@@ -327,7 +327,7 @@ texreg::screenreg(all_models,
 )
 
 # sjPlots version.
-# Uncomment to use
+# Install sjPlots and uncomment to use
 # sjPlot::tab_model(m2_std, m3_std, show.se = TRUE, show.stat = TRUE)
 
 texreg::texreg(all_models,

@@ -47,6 +47,7 @@ running these two commands in R:
 install.packages("renv")
 renv::restore()
 ```
+The code was tested and executed with R version 4.5.0.
 
 ### Scripts
 
